@@ -21,7 +21,7 @@
                 <h3>Lista de Tarefas</h3>
                 
                 <div class="all-todos">
-                    <div class="single-todo" v-for="todo in todoLists" @click="todo.active = !todo.active" :class="{done : todo.active}">
+                    <div class="single-todo" v-for="todo in todoLists" @click="todo.active = !todo.active; storeTodosOnLocalStorage()" :class="{done : todo.active}">
                         <p>{{ todo.message }}</p>
                     </div>
                 </div>
