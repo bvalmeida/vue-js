@@ -7,6 +7,7 @@
 
       <template v-for="(answer, index) in this.answers" :key="index">
         <input 
+        :disabled="this.answerSubmitted"
         type="radio" 
         name="options" 
         :value="answer"
@@ -20,9 +21,9 @@
       <button class="send" 
       type="button"
       @click="this.submitAnswer()"
-      >Send</button>
+      >{{ this.buttonText }}</button>
 
-      <label>{{ this.messageCorrectOrNot }}</label>
+      <h4>{{ this.messageCorrectOrNot }}</h4>
 
     </template>
   </div>
@@ -43,6 +44,8 @@ export default {
       pcPoints: 0,
       playerPoints: 0,
       messageCorrectOrNot: undefined,
+      answerSubmitted: false,
+      buttonText: 'Send',
     };
   },
   computed: {
@@ -73,18 +76,25 @@ export default {
 
     validateAnswer(){
       if(!this.chosenAnswer){
-        alert('Pick one of the options');
+        console.log('Pick one of the options');
 
       }else{
+        this.answerSubmitted = true;
         if(this.chosenAnswer === this.correctAnswer){
-          alert('You got it right');
+          console.log('You got it right');
           this.playerPoints += 1;
-
+          this.messageCorrectOrNot = 'You got it!! Congrats'
         }else{
-          alert('You got it wrong');
+          console.log('You got it wrong');
           this.pcPoints +=1;
+          this.messageCorrectOrNot = "You don't got it!! Sorry";
         }
+        this.nextButtonText('Next question');
       }
+    },
+
+    nextButtonText(text){
+      this.buttonText = text;
     }
     
   },  
